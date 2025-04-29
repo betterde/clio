@@ -1,0 +1,20 @@
+services:
+  clio:
+    image: clio:latest
+    ports:
+      - 0.0.0.0:443:443/tcp
+    networks:
+      - traefik
+    hostname: clio
+    environment:
+      - CLIO_ENV=production
+      - CLIO_LOGGING_LEVEL=INFO
+
+      - CLIO_HTTP_LISTEN=0.0.0.0:443
+      - CLIO_HTTP_TLSKEY=/certs/domain.tld.key
+      - CLIO_HTTP_TLSCERT=/certs/domain.tld.crt
+    container_name: clio
+
+networks:
+  traefik:
+    external: true
