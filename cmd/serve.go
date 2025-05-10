@@ -1,5 +1,5 @@
 /*
-Copyright © 2024 George <george@betterde.com>
+Copyright © 2025 George <george@betterde.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

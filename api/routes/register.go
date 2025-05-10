@@ -1,15 +1,27 @@
 package routes
 
 import (
-	"github.com/betterde/clio/internal/response"
+	"github.com/betterde/clio/api/handlers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"
 )
 
 func RegisterRoutes(app *fiber.App) {
-	app.Get("/health", func(ctx *fiber.Ctx) error {
-		return ctx.JSON(response.Success("Success", nil))
-	}).Name("Health check")
+	api := app.Group("api/v1")
+
+	api.Get("/health", handlers.HealthCheck).Name("api.health.check")
+
+	auth := api.Group("auth")
+	auth.Post("signup", handlers.SignUp).Name("api.auth.signup")
+	auth.Post("signin", handlers.SignIn).Name("api.auth.signin")
+	auth.Get(":idp/callback", handlers.Callback).Name("api.auth.callback")
+
+	// Swagger UI router
+	app.Get("/docs/*", swagger.New(swagger.Config{
+		URL:          "/swagger/user.swagger.json",
+		DeepLinking:  false,
+		DocExpansion: "none",
+	}))
 
 	// Swagger API specification file router
 	//app.Get("/swagger/*", filesystem.New(filesystem.Config{
@@ -18,13 +30,6 @@ func RegisterRoutes(app *fiber.App) {
 	//	NotFoundFile:       "user.swagger.json",
 	//	ContentTypeCharset: "UTF-8",
 	//})).Name("Swagger JSON Schema")
-
-	// Swagger UI router
-	app.Get("/docs/*", swagger.New(swagger.Config{
-		URL:          "/swagger/user.swagger.json",
-		DeepLinking:  false,
-		DocExpansion: "none",
-	})).Name("Swagger UI")
 
 	// Embed SPA static resource
 	//app.Get("*", filesystem.New(filesystem.Config{

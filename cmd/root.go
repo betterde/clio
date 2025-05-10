@@ -1,5 +1,5 @@
 /*
-Copyright © 2024 George <george@betterde.com>
+Copyright © 2025 George <george@betterde.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -74,7 +74,7 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Enable verbose mode")
 
 	// Print app version
-	rootCmd.SetVersionTemplate("{{printf \"%s\" .Version}}\n")
+	rootCmd.SetVersionTemplate("{{ .Version }}\n")
 }
 
 // initConfig reads in config file and ENV variables if set.
