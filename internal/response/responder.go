@@ -65,6 +65,15 @@ func InternalServerError(message string, err error) Response {
 	}
 }
 
+// Forbidden Sending a forbidden error response
+func Forbidden(message string) Response {
+	return Response{
+		Code:    http.StatusForbidden,
+		Message: message,
+		Data:    struct{}{},
+	}
+}
+
 // Send Sending a basic response
 func Send(code int, message string, data interface{}) Response {
 	if data == nil {
